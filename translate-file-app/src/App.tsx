@@ -6,7 +6,7 @@ import Login from './components/log';
 
 function App() {
   return (
-    <div className="flex w-full h-screen ">
+    <div className="flex w-full h-screen bg-[#f5f5f5]">
       <TopBar />
       <Login />
     </div>
