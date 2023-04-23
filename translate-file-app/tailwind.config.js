@@ -7,9 +7,7 @@ module.exports = {
         'white-smoke': '#f5f5f5',
       },
     },
-    // borderWidth: {
-    //   default: '1px',
-    // },
+    
   },
   plugins: [],
 };
