@@ -10,37 +10,46 @@ function Algorithm() {
     if (select === -1) {
       console.log('num ', num);
       setSelect(num);
+      return;
     }
 
     if (select === num) {
       console.log('num ', num);
       setSelect(num);
+      return;
     }
-  };
-
-  const moveSelected = (selected: number, target: number) => {
-    const selectedTower = box[selected][0] || Infinity;
-    const targetTower = box[target][0] || Infinity;
-    console.log('box select', box[selected]?.[0]);
-    console.log('box target', box[target][0]);
-    if (selectedTower < targetTower) {
-      box[selected]?.shift();
-      box[target]?.unshift(selectedTower);
-    }
-  };
-
-  const doOnClick = (a: number) => {
-    handleOnClick(a);
-    moveSelected(select, select);
+    moveSelected(select, num);
     setSelect(-1);
   };
 
+  const moveSelected = (selected: number | any, target: number | any) => {
+    console.log('selected : ', selected);
+    const selectedTower = box?.[selected]?.[0] || Infinity;
+    console.log(box[0][0]);
+    const targetTower = box?.[target]?.[0] || Infinity;
+    console.log('box select', box[selected]?.[0] || Infinity);
+    console.log('box target', box[target]?.[0] || Infinity);
+    box.map((i) => console.log(i));
+    if (selectedTower < targetTower) {
+      box?.[selected].shift();
+      box?.[target].unshift(selectedTower);
+      box.map((i) => console.log(i));
+    }
+    setSelect(-1);
+  };
+
+  // const doOnClick = (a: number) => {
+  //   handleOnClick(a);
+  //   ;
+  // };
+
   return (
     <div className="main">
+      {console.log('re-render')}
       {box.map((i, index) => (
         <div
           className="column"
-          onClick={() => doOnClick(index)}
+          onClick={() => handleOnClick(index)}
           key={index}
           style={{ '--theme-color': '#000' }}
         >
