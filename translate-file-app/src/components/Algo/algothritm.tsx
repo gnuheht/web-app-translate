@@ -11,6 +11,11 @@ function Algothritm() {
       console.log('num');
       setSelect(num);
     }
+
+    if (select === num) {
+      console.log('num');
+      setSelect(num);
+    }
   };
 
   const moveSelected = (selected: number, target: number) => {
@@ -31,7 +36,12 @@ function Algothritm() {
   return (
     <div className="main">
       {box.map((i, index) => (
-        <div className="column" onClick={() => doOnclick(index)} key={index}>
+        <div
+          className="column"
+          onClick={() => doOnclick(index)}
+          key={index}
+          style={{ '--theme-color': '#000' }}
+        >
           {i.map((a, index) => (
             <Disc
               key={index}
