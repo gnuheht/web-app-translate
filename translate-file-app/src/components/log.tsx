@@ -1,11 +1,35 @@
 import React from 'react';
 import { BsSearch, BsFillCloudHazeFill } from 'react-icons/bs';
-const Login = () => {
+import {useForm} from 'react-hook-form';
+
+type LogForm = {
+  email: string,
+  password: string,
+  confirmPassword?: string;
+}
+
+type LogProp = {
+  page: "Login" | "Sign Up"
+}
+function Login({page}: LogProp)  {
+  const {
+    register,
+    getValues,
+    formState: {errors},
+    handleSubmit,
+  } = useForm<LogForm>();
+
+  const onClickSubmit = (data : LogForm) => {
+    console.log(data)
+  }
+  const emailPattern = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+
+  const action = page === "Login" ? "Continue" : "Sign Up"
   return (
     <div className="flex flex-col justify-center items-center w-full">
       <div
         className=" w-max h-max border rounded-lg
-       border-gray-400 bg-white"
+       border-gray-400 bg-white "
       >
         {/* button up */}
         <div className="text-center w-full h-80">
@@ -35,21 +59,44 @@ const Login = () => {
         </div>
         {/* form down */}
         <div className="flex flex-col w-full justify-center items-center h-80">
-          <form action="" className='w-9/12'>
+          <form action="" className='w-9/12'
+            onSubmit={handleSubmit((data) => onClickSubmit(data))}>
             <div className='w-full'>
               <label htmlFor="" className='w-full'>Email</label>
-              <input type="text" className='w-full border border-gray-500 rounded-md' />
+              <input type="email" className='w-full border border-gray-500 rounded-md'
+              {...register("email", {
+                required:"Email chưa được nhập",
+                pattern: {
+                  value : emailPattern,
+                  message : "email có dạng : 123abc@gmail.com"
+                }
+              })}
+              />
+              <p>{errors?.email?.message}</p>
             </div>
             <div className='w-full'>
               <label htmlFor="" className='w-full'>Email</label>
-              <input type="text" className='w-full border border-gray-500 rounded-md' />
+              <input type="password" className='w-full border border-gray-500 rounded-md' 
+              {...register("password", {
+                required: "Password chưa được nhập",
+                minLength : 
+                  page === "Sign Up" 
+                  ? {
+                      value : 6,
+                      message : "Pass cần có ít nhất 6 kí tự"
+                    } : undefined
+              })}
+              />
+              <p>{errors?.email?.message}</p>
             </div>
             <div className='w-full'>
               <input type="checkbox" className='' /> Remember me
             </div>
             <div>
-              <button className="w-full rounded-md bg-[#3b49df] mt-2 text-md font-medium h-12 text-white">
-                Continue with Google
+              <button 
+              type='submit'
+              className="w-full rounded-md bg-[#3b49df] mt-2 text-md font-medium h-12 text-white">
+                Log in
               </button>
             </div>
             <div className='text-center'>
