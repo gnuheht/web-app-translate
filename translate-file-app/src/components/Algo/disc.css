@@ -1,0 +1,36 @@
+.disc{
+		width: 100px;
+		height: 20px;
+		background-color: black;
+		color: white;
+		display: flex;
+		justify-content: center;
+		align-items: center;
+	}
+	
+.disc.active{
+		background-color: red;
+}
+
+.main{
+	width: 100vw;
+	display: grid;
+	grid-auto-columns: minmax(0, 1fr);
+	grid-auto-flow: column;
+	min-height: 300px;
+	margin-top: 200px;
+}
+.column{
+	background: linear-gradient(to right, white 49%, var(--theme-color) 49%, var(--theme-color) 51%, white 51%);
+	display: flex;
+	flex-direction: column;
+	justify-content: flex-end;
+	align-items: center;
+	gap: 10px;
+}
+.column:hover{
+	background: linear-gradient(to right, white 49%, #ff3e00 49%, #ff3e00 51%, white 51%);
+}
+
+
+
