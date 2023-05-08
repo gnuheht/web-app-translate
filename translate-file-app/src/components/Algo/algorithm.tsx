@@ -1,19 +1,19 @@
 import { useState, useEffect } from 'react';
 import './disc.css';
 import Disc from './disc';
-function Algothritm() {
+function Algorithm() {
   let box = [[1, 2, 3, 4, 5], [], []];
   const [select, setSelect] = useState(-1);
 
   const handleOnClick = (num: number) => {
     console.log('num', num);
     if (select === -1) {
-      console.log('num');
+      console.log('num ', num);
       setSelect(num);
     }
 
     if (select === num) {
-      console.log('num');
+      console.log('num ', num);
       setSelect(num);
     }
   };
@@ -21,15 +21,17 @@ function Algothritm() {
   const moveSelected = (selected: number, target: number) => {
     const selectedTower = box[selected][0] || Infinity;
     const targetTower = box[target][0] || Infinity;
+    console.log('box select', box[selected]?.[0]);
+    console.log('box target', box[target][0]);
     if (selectedTower < targetTower) {
-      box[selected].shift();
-      box[target].unshift(selectedTower);
+      box[selected]?.shift();
+      box[target]?.unshift(selectedTower);
     }
   };
 
-  const doOnclick = (a: number) => {
+  const doOnClick = (a: number) => {
     handleOnClick(a);
-    moveSelected(select, a);
+    moveSelected(select, select);
     setSelect(-1);
   };
 
@@ -38,7 +40,7 @@ function Algothritm() {
       {box.map((i, index) => (
         <div
           className="column"
-          onClick={() => doOnclick(index)}
+          onClick={() => doOnClick(index)}
           key={index}
           style={{ '--theme-color': '#000' }}
         >
@@ -55,4 +57,4 @@ function Algothritm() {
   );
 }
 
-export default Algothritm;
+export default Algorithm;
