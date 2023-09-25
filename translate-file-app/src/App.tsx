@@ -6,7 +6,7 @@ import Log from './pages/Login';
 function App() {
   return (
     <>
-      <Log />
+      <h1>HĐây là web</h1>
     </>
   );
 }

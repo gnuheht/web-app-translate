@@ -1,7 +1,7 @@
 import React from 'react';
 import { BsSearch, BsFillCloudHazeFill } from 'react-icons/bs';
 
-export default function Header({children} ?: React.ReactNode) {
+export default function Header(children ?: React.FC) {
   return (
     <div>
       <div className="fixed flex items-center w-full top-0 left-0 right-0 h-14 py-2 bg-white">

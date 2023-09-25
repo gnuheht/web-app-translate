@@ -1,31 +1,35 @@
 import React from 'react';
 import { BsSearch, BsFillCloudHazeFill } from 'react-icons/bs';
-import {useForm} from 'react-hook-form';
+import { useForm } from 'react-hook-form';
 
 type LogForm = {
-  email: string,
-  password: string,
+  email: string;
+  password: string;
   confirmPassword?: string;
-}
+};
 
 type LogProp = {
   page: "Login" | "Sign Up"
 }
 
 function Log({page}: LogProp)  {
+  const action = page === 'Login' ? 'Continue' : 'Sign Up';
+
+  const emailPattern =
+    /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+
   const {
     register,
     getValues,
-    formState: {errors},
+    formState: { errors },
     handleSubmit,
   } = useForm<LogForm>();
 
-  const onClickSubmit = (data : LogForm) => {
-    console.log(data)
-  }
-  const emailPattern = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-
-  const action = page === "Login" ? "Continue" : "Sign Up"
+  const onClickSubmit = (data: LogForm) => {
+    console.log(data);
+  };
+  
+  
   return (
     <div className='
     mt-14'>
@@ -54,16 +58,15 @@ function Log({page}: LogProp)  {
             Continue with Google
           </button>
           <div className="mt-5">
-          <span className="after:">
-            Have a password? Continue with your email address
-          </span>
-        </div>
-        
+            <span className="after:">
+              Have a password? Continue with your email address
+            </span>
+          </div>
         </div>
         {/* form down */}
         <div className="flex flex-col w-full justify-center items-center h-72">
           <form action="" className='w-9/1'
-            onSubmit={handleSubmit((data) => onClickSubmit(data))}>
+            onSubmit={handleSubmit((data : LogForm) => onClickSubmit(data))}>
             <div className='w-full'>
               <label htmlFor="" className='w-full'>Email</label>
               <input type="email" className='w-full border border-gray-500 rounded-md p-1 pl-1'
@@ -97,13 +100,12 @@ function Log({page}: LogProp)  {
               <label htmlFor="" className='w-full'>Confirm Password</label>
               <input type="password" className='w-full border border-gray-500 rounded-md p-1' 
               {...register("password", {
-                required: "Password không trùng nhau",
-                minLength : 
-                  page === "Sign Up" 
-                  ? {
-                      value : 6,
-                      message : "Pass cần có ít nhất 6 kí tự"
-                    } : undefined
+                required: "Không để trống",
+                validate : {
+                  passwordEqual : value => 
+                  value === getValues().password || 
+                  "Password chưa trùng nhau" 
+                }
               })}
               />
               <p>{errors?.email?.message}</p>
@@ -119,8 +121,8 @@ function Log({page}: LogProp)  {
                 {page}
               </button>
             </div>
-            <div className='text-center'>
-              <a className='text-[#3b49df]'>I forgot my password</a>
+            <div className="text-center">
+              <a className="text-[#3b49df]">I forgot my password</a>
             </div>
           </form>
         </div>
@@ -128,6 +130,6 @@ function Log({page}: LogProp)  {
       </div>
     </div>
   );
-};
+}
 
 export default Log;
