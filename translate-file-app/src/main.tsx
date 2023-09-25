@@ -8,6 +8,8 @@ import App from './App'
 import './index.css'
 import Log from './pages/Login';
 import LogLayout from './components/Log';
+import Login from './pages/Login';
+import Signup from './pages/Signup';
 
 const router = createBrowserRouter([
   {
@@ -15,9 +17,13 @@ const router = createBrowserRouter([
     element: <App/>
   },
   {
-    path :"/Login",
-    element : <LogLayout/>
+    path :"/login",
+    element : <Login/>
   },
+  {
+    path : '/signup',
+    element : <Signup/>
+  }
 ])
 
 ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(

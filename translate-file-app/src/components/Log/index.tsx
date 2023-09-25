@@ -13,6 +13,11 @@ type LogProp = {
 }
 
 function Log({page}: LogProp)  {
+  const action = page === 'Login' ? 'Continue' : 'Sign Up';
+
+  const emailPattern =
+    /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+
   const {
     register,
     getValues,
@@ -23,10 +28,8 @@ function Log({page}: LogProp)  {
   const onClickSubmit = (data: LogForm) => {
     console.log(data);
   };
-  const emailPattern =
-    /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-
-  const action = page === 'Login' ? 'Continue' : 'Sign Up';
+  
+  
   return (
     <div className='
     mt-14'>
@@ -97,13 +100,12 @@ function Log({page}: LogProp)  {
               <label htmlFor="" className='w-full'>Confirm Password</label>
               <input type="password" className='w-full border border-gray-500 rounded-md p-1' 
               {...register("password", {
-                required: "Password không trùng nhau",
-                minLength : 
-                  page === "Sign Up" 
-                  ? {
-                      value : 6,
-                      message : "Pass cần có ít nhất 6 kí tự"
-                    } : undefined
+                required: "Không để trống",
+                validate : {
+                  passwordEqual : value => 
+                  value === getValues().password || 
+                  "Password chưa trùng nhau" 
+                }
               })}
               />
               <p>{errors?.email?.message}</p>
