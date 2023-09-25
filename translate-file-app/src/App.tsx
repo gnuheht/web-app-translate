@@ -1,17 +1,13 @@
-import { useState } from 'react';
 
 import './App.css';
-import TopBar from './components/top-bar';
-import Login from './components/log';
-import Algorithm from './components/Algo/algorithm';
+
+import Log from './pages/Login';
 
 function App() {
   return (
-    <div className="">
-      {/* <TopBar /> */}
-      {/* <Login /> */}
-      <Algorithm />
-    </div>
+    <>
+      <Log />
+    </>
   );
 }
 
