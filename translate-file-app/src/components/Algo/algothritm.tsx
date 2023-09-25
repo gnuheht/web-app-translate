@@ -40,6 +40,7 @@ function Algothritm() {
                     {i.map((a, index) => <Disc key={index} num={a} onClick={() => doOnclick(a)} />)}
                 </div>
             ))}
+            <input minLength={3}></input>
         </div>
     )
 }

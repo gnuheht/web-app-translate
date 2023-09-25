@@ -11,7 +11,8 @@ type LogForm = {
 type LogProp = {
   page: "Login" | "Sign Up"
 }
-function Login({page}: LogProp)  {
+
+function Log({page}: LogProp)  {
   const {
     register,
     getValues,
@@ -26,13 +27,15 @@ function Login({page}: LogProp)  {
 
   const action = page === "Login" ? "Continue" : "Sign Up"
   return (
-    <div className="flex flex-col justify-center items-center w-full">
+    <div className='
+    mt-14'>
+      <div className="flex flex-col justify-center items-center w-full mb-6 ">
       <div
-        className=" w-max h-max border rounded-lg
+        className=" w-max border rounded-lg
        border-gray-400 bg-white "
       >
         {/* button up */}
-        <div className="text-center w-full h-80">
+        <div className="text-center w-full h-full">
           <h2 className="mt-10">
             <span className="text-4xl font-bold">Welcome to DEV INTS</span>
             <br />
@@ -58,12 +61,12 @@ function Login({page}: LogProp)  {
         
         </div>
         {/* form down */}
-        <div className="flex flex-col w-full justify-center items-center h-80">
-          <form action="" className='w-9/12'
+        <div className="flex flex-col w-full justify-center items-center h-72">
+          <form action="" className='w-9/1'
             onSubmit={handleSubmit((data) => onClickSubmit(data))}>
             <div className='w-full'>
               <label htmlFor="" className='w-full'>Email</label>
-              <input type="email" className='w-full border border-gray-500 rounded-md'
+              <input type="email" className='w-full border border-gray-500 rounded-md p-1 pl-1'
               {...register("email", {
                 required:"Email chưa được nhập",
                 pattern: {
@@ -75,10 +78,26 @@ function Login({page}: LogProp)  {
               <p>{errors?.email?.message}</p>
             </div>
             <div className='w-full'>
-              <label htmlFor="" className='w-full'>Email</label>
-              <input type="password" className='w-full border border-gray-500 rounded-md' 
+              <label htmlFor="" className='w-full'>Password</label>
+              <input type="password" className='w-full border border-gray-500 rounded-md p-1' 
               {...register("password", {
                 required: "Password chưa được nhập",
+                minLength : 
+                  page === "Login" 
+                  ? {
+                      value : 6,
+                      message : "Pass cần có ít nhất 6 kí tự"
+                    } : undefined
+              })}
+              />
+              <p>{errors?.email?.message}</p>
+            </div>
+            {page === 'Sign Up' &&(
+              <div className='w-full'>
+              <label htmlFor="" className='w-full'>Confirm Password</label>
+              <input type="password" className='w-full border border-gray-500 rounded-md p-1' 
+              {...register("password", {
+                required: "Password không trùng nhau",
                 minLength : 
                   page === "Sign Up" 
                   ? {
@@ -89,6 +108,7 @@ function Login({page}: LogProp)  {
               />
               <p>{errors?.email?.message}</p>
             </div>
+            ) }
             <div className='w-full'>
               <input type="checkbox" className='' /> Remember me
             </div>
@@ -96,18 +116,18 @@ function Login({page}: LogProp)  {
               <button 
               type='submit'
               className="w-full rounded-md bg-[#3b49df] mt-2 text-md font-medium h-12 text-white">
-                Log in
+                {page}
               </button>
             </div>
             <div className='text-center'>
               <a className='text-[#3b49df]'>I forgot my password</a>
             </div>
-
           </form>
         </div>
+      </div>
       </div>
     </div>
   );
 };
 
-export default Login;
+export default Log;
